@@ -6,10 +6,12 @@ const apiKey = "6c6085133669699f90a7c31e8d19efc9";
 const urlImg = "https://image.tmdb.org/t/p/w500";
 
 let resultContainer = document.getElementById("results");
-resultContainer.innerHTML = "";
+
 
 function searchMovies() {
-  let searchInput = document.getElementById("searchInput").value;
+  resultContainer.innerHTML = "Loading";
+  let searchInput = document.getElementById("searchInput").value; 
+ 
   //Get
   fetch(`${urlBase}query=${searchInput}&api_key=${apiKey}`)
     .then((data) => data.json())
@@ -35,9 +37,14 @@ function showinfo(movies) {
     let overView = document.createElement("p");
     overView.textContent = movie.overview;
 
+    
 
     let posterPath = urlImg + movie.poster_path;
     let poster = document.createElement("img");
+    if(posterPath === urlImg+null){
+      //posterPath = urlImg+"/unCd1bU1X8Quybt8HCUd3E4QOvv.jpg"
+      posterPath = "./notFound.png"
+    }
     poster.src = posterPath;
 
     movieDiv.appendChild(poster);
